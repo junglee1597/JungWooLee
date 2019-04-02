@@ -111,6 +111,45 @@ def add_new_tracker(trackers, city, country, priority):
     return sort_list(trackers)
 
 
+def mark_place(trackers):
+    start_not_visited_count = 0
+    for i in range(0, len(trackers)):
+        row = trackers[i]
+        if row[3] == 'v':
+            start_not_visited_count = i + 1
+
+    if start_not_visited_count == 1:
+        print("No unvisited place")
+        return trackers
+
+    display_places(trackers)
+
+    print("Enter the number of a place to mark as visited.")
+    while True:
+        choice = input(">>>")
+        try:
+            choice = int(choice)
+        except:
+            print("Invalid input; enter a valid number.")
+            continue
+
+        if choice <= 0:
+            print("Number must be > 0")
+
+        elif choice > len(trackers):
+            print("Invalid places number.")
+
+        elif choice >= start_not_visited_count:
+            print("That place is already visited")
+            return sort_list(trackers)
+        else:
+            choice = choice - 1
+            trackers[choice][3] = 'v'
+            print(trackers[choice][0], 'in', trackers[choice][1], 'visited!')
+
+    return sort_list(trackers)
+
+
 def main():
     user_name = str(input("Please Enter Your Name:"))
     print(welcome_message(user_name))
@@ -135,7 +174,7 @@ Q - Quit"""
             add_new_tracker(trackers, city, country, priority)
 
         elif choice == 'M':
-            pass
+            mark_place(trackers)
 
         elif choice == 'Q':
             pass
