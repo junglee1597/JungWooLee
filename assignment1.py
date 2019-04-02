@@ -72,6 +72,45 @@ def display_places(trackers):
         print(len(trackers), "places. You still want to visit", not_visited_count, "places.")
 
 
+def city_value():
+    while True:
+        city = str(input("City Name:"))
+        if len(city) == 0:
+            print('Input can not be blank')
+        else:
+            return city.capitalize()
+
+
+def country_value():
+    while True:
+        country = str(input("Country Name:"))
+        if len(country) == 0:
+            print('Input can not be blank')
+        else:
+            return country.capitalize()
+
+
+def priority_value():
+    while True:
+        num = input("Priority: ")
+        try:
+            num = int(num)
+        except:
+            print("Invalid input; enter a valid number")
+            continue
+        if num <= 0:
+            print("Number must be > 0")
+        else:
+            return num
+
+
+def add_new_tracker(trackers, city, country, priority):
+    print("{} in {}  (Priority: {}) added to Travel tracker".format(city, country, str(priority)))
+    new_tracker = [city, country, priority, 'n']
+    trackers.append(new_tracker)
+    return sort_list(trackers)
+
+
 def main():
     user_name = str(input("Please Enter Your Name:"))
     print(welcome_message(user_name))
@@ -90,7 +129,10 @@ Q - Quit"""
             display_places(trackers)
 
         elif choice == 'A':
-            pass
+            city = city_value()
+            country = country_value()
+            priority = priority_value()
+            add_new_tracker(trackers, city, country, priority)
 
         elif choice == 'M':
             pass
