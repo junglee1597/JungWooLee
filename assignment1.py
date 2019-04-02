@@ -146,8 +146,17 @@ def mark_place(trackers):
             choice = choice - 1
             trackers[choice][3] = 'v'
             print(trackers[choice][0], 'in', trackers[choice][1], 'visited!')
+            display_places(trackers)
 
     return sort_list(trackers)
+
+
+def save_data(file_name, trackers):
+    with open(file_name, "w", newline="") as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        for line in trackers:
+            writer.writerow(line)
+    print(len(trackers), "places saved to", file_name)
 
 
 def main():
@@ -171,13 +180,14 @@ Q - Quit"""
             city = city_value()
             country = country_value()
             priority = priority_value()
-            add_new_tracker(trackers, city, country, priority)
+            trackers = add_new_tracker(trackers, city, country, priority)
 
         elif choice == 'M':
             mark_place(trackers)
 
         elif choice == 'Q':
-            pass
+            save_data('places.csv', trackers)
+            print("Have a nice day :)")
 
         else:
             print("Invalid menu choice")
